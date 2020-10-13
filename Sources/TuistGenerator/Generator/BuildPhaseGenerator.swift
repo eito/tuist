@@ -372,6 +372,10 @@ final class BuildPhaseGenerator: BuildPhaseGenerating {
                                          fileElements: ProjectFileElements,
                                          pbxproj: PBXProj) throws
     {
+        guard target.product == .app else {
+            return
+        }
+
         guard let appClips = graphTraverser.appClipsDependency(path: path, name: target.name) else {
             return
         }
