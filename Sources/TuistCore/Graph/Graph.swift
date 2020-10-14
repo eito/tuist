@@ -653,7 +653,7 @@ public class Graph: Encodable, Equatable {
 
     fileprivate func testHostApplication(for targetNode: TargetNode) -> TargetNode? {
         targetDependencies(path: targetNode.path, name: targetNode.name)
-            .first(where: { $0.target.product == .app })
+            .first(where: { $0.target.product.canHostTests() })
     }
 
     fileprivate func isStaticLibrary(targetNode: TargetNode) -> Bool {
