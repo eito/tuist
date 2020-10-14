@@ -246,7 +246,7 @@ public class Graph: Encodable, Equatable {
 
             // Exclude any static products linked in a host application
             if targetNode.target.product == .unitTests {
-                if let hostApp = hostApplication(for: targetNode) {
+                if let hostApp = testHostApplication(for: targetNode) {
                     staticLibraryTargetNodes.subtract(transitiveStaticTargetNodes(for: hostApp))
                 }
             }
@@ -321,7 +321,7 @@ public class Graph: Encodable, Equatable {
             let targetNode = findTargetNode(path: path, name: name),
             canEmbedProducts(targetNode: targetNode),
             targetNode.target.product == .unitTests,
-            hostApplication(for: targetNode) == nil
+            testHostApplication(for: targetNode) == nil
         else {
             return []
         }
@@ -374,7 +374,7 @@ public class Graph: Encodable, Equatable {
 
         // Exclude any products embed in unit test host apps
         if targetNode.target.product == .unitTests {
-            if let hostApp = hostApplication(for: targetNode) {
+            if let hostApp = testHostApplication(for: targetNode) {
                 references.subtract(try embeddableFrameworks(path: hostApp.path, name: hostApp.name))
             } else {
                 references = []
@@ -651,7 +651,7 @@ public class Graph: Encodable, Equatable {
         .product(target: targetNode.target.name, productName: targetNode.target.productNameWithExtension)
     }
 
-    fileprivate func hostApplication(for targetNode: TargetNode) -> TargetNode? {
+    fileprivate func testHostApplication(for targetNode: TargetNode) -> TargetNode? {
         targetDependencies(path: targetNode.path, name: targetNode.name)
             .first(where: { $0.target.product == .app })
     }
