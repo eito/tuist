@@ -70,7 +70,7 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        xcode: ['11.5']
+        xcode: ['12']
         feature:
           [
             'generate-1',
