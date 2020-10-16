@@ -102,7 +102,7 @@ Then(/^in project (.+) the target (.+) should have the build phase (.+) in the l
   assert_equal phase_name, build_phase.name
 end
 
-Then(/^in project (.+) the target (.+) should have the build phase (.+)$/) do |project_name, target_name, phase_name|
+Then(/^in project (.+) the target (.+) should contain the build phase (.+)$/) do |project_name, target_name, phase_name|
   workspace = Xcodeproj::Workspace.new_from_xcworkspace(@workspace_path)
   project_file_reference = workspace.file_references.detect { |f| File.basename(f.path, ".xcodeproj") == project_name }
   flunk("Project #{project_name} not found in the workspace") if project_file_reference.nil?
